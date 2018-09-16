@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Pattern</title>
+	<style>
+		html,
+		body {
+			width: 100%;
+			overflow: hidden;
+			background: white;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
+			margin: 0;
+		}
+
+		canvas {
+			display: block;
+			width: 100vw;
+			height: 500px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<script>
+		const canvas = document.createElement('canvas');
+		document.body.appendChild(canvas);
+		canvas.width = window.innerWidth * window.devicePixelRatio;
+		canvas.height = 500 * window.devicePixelRatio;
+		const ctx = canvas.getContext('2d');
+
+		const vid = document.createElement('video');
+		// vid.src = 'goprosnow.MP4';
+		// vid.loop = true;
+		// vid.muted = true;
+		// vid.playbackRate = 2;
+		// vid.play();
+
+		let i = 0;
+
+		const draw = () => {
+			// ctx.globalAlpha = 0.875 + 0.125 * Math.sin(i++ / 1000);
+			// console.log(ctx.globalAlpha);
+
+			const sliceWidth = 3;
+			ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, -sliceWidth, 0, canvas.width, canvas.height);
+			ctx.drawImage(vid, Math.floor(vid.videoWidth / 2), 0, sliceWidth, vid.videoHeight, canvas.width - sliceWidth, 0, sliceWidth, canvas.height);
+
+			requestAnimationFrame(draw);
+		}
+		draw();
+
+		var constraints = { audio: true, video: { width: 1280, height: 720 } };
+
+		navigator.mediaDevices.getUserMedia(constraints)
+			.then(function (mediaStream) {
+				vid.srcObject = mediaStream;
+				vid.onloadedmetadata = function (e) {
+					vid.play();
+				};
+			})
+	</script>
+</body>
+
+</html>
