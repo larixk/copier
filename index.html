@@ -22,7 +22,7 @@
 		canvas {
 			display: block;
 			width: 100vw;
-			height: 500px;
+			height: 100vh;
 		}
 	</style>
 
@@ -33,7 +33,7 @@
 		const canvas = document.createElement('canvas');
 		document.body.appendChild(canvas);
 		canvas.width = window.innerWidth * window.devicePixelRatio;
-		canvas.height = 500 * window.devicePixelRatio;
+		canvas.height = window.innerHeight * window.devicePixelRatio;
 		const ctx = canvas.getContext('2d');
 
 		const vid = document.createElement('video');
