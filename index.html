@@ -3,26 +3,32 @@
 
 <head>
 	<meta charset="UTF-8">
+	<!--
+		copier.live by Larix Kortbeek - 2018 - larixk.nl
+	-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Copier</title>
+	<meta name="description" content="copier.live by Larix Kortbeek - 2018 - larixk.nl">
+	<meta property="og:title" content="copier.live by Larix Kortbeek, 2018" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://copier.live/" />
+	<meta property="og:site_name" content="copier.live" />
+	<meta property="og:description" content="copier.live by Larix Kortbeek - 2018 - larixk.nl" />
+	<title>copier.live by Larix Kortbeek, 2018</title>
 	<style>
 		html,
 		body {
-			width: 100%;
-			overflow: hidden;
 			background: white;
-			display: flex;
-			align-items: center;
-			justify-content: center;
 			height: 100%;
 			margin: 0;
+			overflow: hidden;
+			width: 100%;
 		}
 
 		canvas {
 			display: block;
-			width: 100vw;
 			height: 100vh;
+			width: 100vw;
 		}
 	</style>
 </head>
@@ -36,17 +42,17 @@
 		const ctx = canvas.getContext('2d');
 
 		const vid = document.createElement('video');
-		const constraints = { audio: true, video: { width: 1280, height: 720 } };
-		navigator.mediaDevices.getUserMedia(constraints)
-			.then(function (mediaStream) {
+		navigator.mediaDevices.getUserMedia({ audio: false, video: { width: 1280, height: 720 } })
+			.then((mediaStream) => {
 				vid.srcObject = mediaStream;
-				vid.onloadedmetadata = function (e) {
+				vid.onloadedmetadata = () => {
 					vid.play();
+					vid.muted = true;
 				};
 			})
 
 		const draw = () => {
-			const sliceWidth = 3;
+			const sliceWidth = 4;
 			ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, -sliceWidth, 0, canvas.width, canvas.height);
 			ctx.drawImage(vid, Math.floor(vid.videoWidth / 2), 0, sliceWidth, vid.videoHeight, canvas.width - sliceWidth, 0, sliceWidth, canvas.height);
 
