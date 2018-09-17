@@ -25,7 +25,6 @@
 			height: 100vh;
 		}
 	</style>
-
 </head>
 
 <body>
@@ -37,28 +36,7 @@
 		const ctx = canvas.getContext('2d');
 
 		const vid = document.createElement('video');
-		// vid.src = 'goprosnow.MP4';
-		// vid.loop = true;
-		// vid.muted = true;
-		// vid.playbackRate = 2;
-		// vid.play();
-
-		let i = 0;
-
-		const draw = () => {
-			// ctx.globalAlpha = 0.875 + 0.125 * Math.sin(i++ / 1000);
-			// console.log(ctx.globalAlpha);
-
-			const sliceWidth = 3;
-			ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, -sliceWidth, 0, canvas.width, canvas.height);
-			ctx.drawImage(vid, Math.floor(vid.videoWidth / 2), 0, sliceWidth, vid.videoHeight, canvas.width - sliceWidth, 0, sliceWidth, canvas.height);
-
-			requestAnimationFrame(draw);
-		}
-		draw();
-
-		var constraints = { audio: true, video: { width: 1280, height: 720 } };
-
+		const constraints = { audio: true, video: { width: 1280, height: 720 } };
 		navigator.mediaDevices.getUserMedia(constraints)
 			.then(function (mediaStream) {
 				vid.srcObject = mediaStream;
@@ -66,6 +44,15 @@
 					vid.play();
 				};
 			})
+
+		const draw = () => {
+			const sliceWidth = 3;
+			ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, -sliceWidth, 0, canvas.width, canvas.height);
+			ctx.drawImage(vid, Math.floor(vid.videoWidth / 2), 0, sliceWidth, vid.videoHeight, canvas.width - sliceWidth, 0, sliceWidth, canvas.height);
+
+			requestAnimationFrame(draw);
+		}
+		draw();
 	</script>
 </body>
 
