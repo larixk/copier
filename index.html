@@ -37,8 +37,8 @@
 	<script>
 		const canvas = document.createElement('canvas');
 		document.body.appendChild(canvas);
-		canvas.width = window.innerWidth * window.devicePixelRatio;
-		canvas.height = window.innerHeight * window.devicePixelRatio;
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
 		const ctx = canvas.getContext('2d');
 
 		const vid = document.createElement('video');
@@ -52,7 +52,7 @@
 			})
 
 		const draw = () => {
-			const sliceWidth = 4;
+			const sliceWidth = 1;
 			ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, -sliceWidth, 0, canvas.width, canvas.height);
 			ctx.drawImage(vid, Math.floor(vid.videoWidth / 2), 0, sliceWidth, vid.videoHeight, canvas.width - sliceWidth, 0, sliceWidth, canvas.height);
 
